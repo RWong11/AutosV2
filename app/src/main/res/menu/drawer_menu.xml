@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+            <item android:id="@+id/nav_inicio"
+            android:icon="@drawable/ic_inicio"
+            android:title="Inicio"/>
+
+        <item android:id="@+id/nav_autos"
+            android:icon="@drawable/ic_autos"
+            android:title="Autos"/>
+e
+        <item android:id="@+id/nav_personas"
+            android:icon="@drawable/ic_personas"
+            android:title="Personas"/>
+
+        <item android:id="@+id/nav_servicios"
+            android:icon="@drawable/ic_servicios"
+            android:title="Servicios"/>
+    </group>
+
+    <item android:title="Consultas">
+        <menu>
+            <item android:id="@+id/nav_consulta_ingresos"
+                android:icon="@drawable/ic_consulta_ingresos"
+                android:title="Ingresos por ciudad"/>
+
+            <item android:id="@+id/nav_consulta_servicios"
+                android:icon="@drawable/ic_consulta_servicios"
+                android:title="Lista de servicios"/>
+
+            <item android:id="@+id/nav_consulta_personas"
+                android:icon="@drawable/ic_consulta_personas"
+                android:title="Personas sin servicio"/>
+        </menu>
+    </item>
+</menu>
