@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -18,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -53,10 +51,10 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
         textoAno = view.findViewById(R.id.textoAno);
 
         imagenAuto.setOnClickListener(this);
-        ((Button) view.findViewById(R.id.botonInsertar)).setOnClickListener(this);
-        ((Button) view.findViewById(R.id.botonActualizar)).setOnClickListener(this);
-        ((Button) view.findViewById(R.id.botonConsultar)).setOnClickListener(this);
-        ((Button) view.findViewById(R.id.botonEliminar)).setOnClickListener(this);
+        (view.findViewById(R.id.botonInsertar)).setOnClickListener(this);
+        (view.findViewById(R.id.botonActualizar)).setOnClickListener(this);
+        (view.findViewById(R.id.botonConsultar)).setOnClickListener(this);
+        (view.findViewById(R.id.botonEliminar)).setOnClickListener(this);
     }
 
     private void abrirGaleria(){
@@ -94,7 +92,7 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
                 }
 
                 if(!bd.insertarAuto(placa, marca, modelo, imagenToByteArray(imagenAuto), Integer.parseInt(ano)))
-                    alerta("BD Error", "Ya existe un auto con esa placa");
+                    alerta("BD Error", "Ya existe un auto con la placa: " + placa);
                 else
                     vaciarCampos();
 
@@ -116,7 +114,7 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
                     textoAno.setText(c.getString(4));
 
                     if(c.getInt(5) == 1)
-                        alerta("Alerta", "El auto que se muestra esta dado de baja");
+                        alerta("Alerta", "El auto que se muestra está dado de baja");
                 }
                 else
                     Toast.makeText(getActivity(), "Auto no encontrado", Toast.LENGTH_LONG).show();
@@ -129,7 +127,7 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
                 ano = textoAno.getText().toString();
 
                 if(placa.isEmpty() || marca.isEmpty() || modelo.isEmpty() || ano.isEmpty()) {
-                    alerta("Error", "Algunos campos estan vacios");
+                    alerta("Error", "Algunos campos están vacíos");
                     return;
                 }
 
@@ -145,7 +143,7 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
                     vaciarCampos();
                 }
                 else
-                    alerta("Error", "El numero de placa ingresado no existe");
+                    alerta("Error", "El número de placa ingresado no existe");
 
                 query.close();
                 break;
@@ -164,7 +162,7 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
                     vaciarCampos();
                 }
                 else
-                    alerta("Error", "El numero de placa ingresado no existe");
+                    alerta("Error", "El número de placa ingresado no existe");
 
                 query.close();
                 break;
@@ -178,7 +176,7 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
         textoAno.setText("");
         imagenAuto.setImageResource(getResources().getIdentifier("ic_menu_gallery" , "android:drawable", getActivity().getPackageName()));
         textoPlaca.requestFocus();
-}
+    }
 
     public byte[] imagenToByteArray(ImageView imagen) {
         Drawable d = imagen.getDrawable();

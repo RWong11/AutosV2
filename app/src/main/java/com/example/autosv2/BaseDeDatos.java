@@ -12,9 +12,13 @@ public class BaseDeDatos extends SQLiteOpenHelper {
     static final String NOMBRE = "NISSON";
     static final int version = 1;
 
-    final String TABLA_AUTOS = "CREATE TABLE autos(aut_placa TEXT PRIMARY KEY, aut_marca TEXT, aut_modelo TEXT, aut_imagen BLOB, aut_ano INTEGER, aut_estado INTEGER)";
-    final String TABLA_PERSONAS = "CREATE TABLE personas(per_rfc TEXT PRIMARY KEY, per_nombre TEXT, per_ciudad TEXT, per_estado INTEGER)";
-    final String TABLA_SERVICIOS = "CREATE TABLE servicios(ser_orden INTEGER PRIMARY KEY AUTOINCREMENT, ser_placa TEXT, ser_rfc TEXT, ser_km INTEGER, ser_precio REAL, ser_fecha TEXT)";
+    final String TABLA_AUTOS = "CREATE TABLE autos(aut_placa TEXT PRIMARY KEY, " +
+                                "aut_marca TEXT, aut_modelo TEXT, aut_imagen BLOB, " +
+            "                    aut_ano INTEGER, aut_estado INTEGER)";
+    final String TABLA_PERSONAS = "CREATE TABLE personas(per_rfc TEXT PRIMARY KEY, per_nombre TEXT" +
+                                  ", per_ciudad TEXT, per_estado INTEGER)";
+    final String TABLA_SERVICIOS = "CREATE TABLE servicios(ser_orden INTEGER PRIMARY KEY AUTOINCREMENT" +
+                                   ", ser_placa TEXT, ser_rfc TEXT, ser_km INTEGER, ser_precio REAL, ser_fecha TEXT)";
 
     private SQLiteDatabase db;
     private Context contexto;
@@ -87,6 +91,28 @@ public class BaseDeDatos extends SQLiteOpenHelper {
             db.close();
         }
         Toast.makeText(contexto, "Persona (" +nombre +") agregada correctamente!", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    public boolean insertarServicio(String placa, String rfc, int km, float precio, String fecha){
+        ContentValues cv = new ContentValues();
+        cv.put("ser_placa",placa);
+        cv.put("ser_rfc",rfc);
+        cv.put("ser_km",km);
+        cv.put("ser_precio",precio);
+        cv.put("ser_fecha",fecha);
+
+        db = getWritableDatabase();
+        try{
+            db.insertOrThrow("servicios",null,cv);
+        }catch (SQLiteException e){
+            Log.d("DB", e.toString());
+            return false;
+        }
+        finally {
+            db.close();
+        }
+        Toast.makeText(contexto,"Servicio registrado correctamente",Toast.LENGTH_LONG).show();
         return true;
     }
 }
