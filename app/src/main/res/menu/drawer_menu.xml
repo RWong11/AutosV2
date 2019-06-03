@@ -31,9 +31,10 @@ e
                 android:icon="@drawable/ic_consulta_servicios"
                 android:title="Lista de servicios"/>
 
-            <item android:id="@+id/nav_consulta_personas"
+            <item
+                android:id="@+id/nav_consulta_personas"
                 android:icon="@drawable/ic_consulta_personas"
-                android:title="Personas sin servicio"/>
+                android:title="Personas sin servicio" />
         </menu>
     </item>
 </menu>
