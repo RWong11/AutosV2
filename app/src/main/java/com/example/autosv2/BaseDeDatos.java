@@ -94,7 +94,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean insertarServicio(String placa, String rfc, int km, float precio, String fecha){
+    public long insertarServicio(String placa, String rfc, int km, double precio, String fecha){
         ContentValues cv = new ContentValues();
         cv.put("ser_placa",placa);
         cv.put("ser_rfc",rfc);
@@ -103,16 +103,10 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         cv.put("ser_fecha",fecha);
 
         db = getWritableDatabase();
-        try{
-            db.insertOrThrow("servicios",null,cv);
-        }catch (SQLiteException e){
-            Log.d("DB", e.toString());
-            return false;
-        }
-        finally {
-            db.close();
-        }
-        Toast.makeText(contexto,"Servicio registrado correctamente",Toast.LENGTH_LONG).show();
-        return true;
+        long id = db.insert("servicios", null, cv);
+        db.close();
+
+        Toast.makeText(contexto,"Servicio (#" +id +") registrado correctamente",Toast.LENGTH_LONG).show();
+        return id;
     }
 }

@@ -115,13 +115,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="333dp"
+        android:layout_marginTop="79dp"
         android:layout_marginBottom="80dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/imagen">
 
         <Button
             android:id="@+id/botonInsertar"
@@ -139,20 +139,19 @@
             android:text="Consultar "
             android:textSize="10sp" />
 
-        <Button
-            android:id="@+id/botonActualizar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Actualizar"
-            android:textSize="10sp" />
-
-        <Button
-            android:id="@+id/botonEliminar3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ELiminar"
-            android:textSize="10sp" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imagen"
+        android:layout_width="236dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginLeft="87dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginRight="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+        app:srcCompat="@drawable/ic_autos" />
 </android.support.constraint.ConstraintLayout>

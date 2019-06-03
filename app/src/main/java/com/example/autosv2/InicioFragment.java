@@ -57,13 +57,6 @@ public class InicioFragment extends Fragment {
         for(int i = 0; i< contenido.length; i++)
             contenido[i] = new ArrayList<>();
 
-        /*Drawable d = imageView.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] bitmapdata = stream.toByteArray();*/
-        byte[] bitmapdata = null;
-
         Cursor c = query.rawQuery("SELECT * from autos", null);
         while(c.moveToNext()) {
             String[] atributos = new String[6];
@@ -74,13 +67,13 @@ public class InicioFragment extends Fragment {
             contenido[AUTOS].add(new Contenido(c.getBlob(3), atributos, c.getInt(5) == 0));
         }
 
-        for(int i = 0; i < 3; i++) {
+        c = query.rawQuery("SELECT * from personas", null);
+        while(c.moveToNext()) {
             String[] atributos = new String[6];
-            atributos[0] = "Ricardo" +i;
-            atributos[1] = "RFC"+i;
-            atributos[2] = "CIUDAD"+i;
-            atributos[3] = "Estado: alta";
-            contenido[PERSONAS].add(new Contenido(null, atributos, true));
+            atributos[0] = c.getString(0);
+            atributos[1] = c.getString(1);
+            atributos[3] = c.getString(2);
+            contenido[PERSONAS].add(new Contenido(null, atributos, c.getInt(3) == 0));
         }
 
         for(int i = 0; i < 10; i++) {
@@ -91,7 +84,7 @@ public class InicioFragment extends Fragment {
             atributos[3] = "Kilometraje: " + new Random().nextInt(1000);
             atributos[4] = "Precio" +i;
             atributos[5] = "Fecha: "+new Random().nextInt(32)+"/12/12";
-            contenido[SERVICIOS].add(new Contenido(bitmapdata, atributos, true));
+            contenido[SERVICIOS].add(new Contenido(null, atributos, true));
         }
 
         adapter = new ArrayAdapter[3];
@@ -130,13 +123,12 @@ public class InicioFragment extends Fragment {
 
             Contenido itemActual = datos.get(Position);
             if(!itemActual.isEnabled())
-                itemView.setAlpha((float)0.35);
+                itemView.setAlpha((float)0.30);
 
             byte[] byteImagen = itemActual.getImagen();
             if(byteImagen != null) {
                 ImageView imagen = (ImageView) itemView.findViewById(R.id.imagen);
                 byteArrayToImagen(imagen, byteImagen);
-                Log.d("IMAGEN", "Se inserto la imagen");
             }
 
             TextView tv;
