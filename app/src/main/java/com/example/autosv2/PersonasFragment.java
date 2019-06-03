@@ -30,9 +30,9 @@ public class PersonasFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         bd = BaseDeDatos.getBD();
 
-        tRfc = view.findViewById(R.id.txtRFC);
-        tNombre = view.findViewById(R.id.txtNombre);
-        tCiudad = view.findViewById(R.id.txtCiudad);
+        tRfc = view.findViewById(R.id.textoRFC);
+        tNombre = view.findViewById(R.id.textoNombre);
+        tCiudad = view.findViewById(R.id.textoCiudad);
         (view.findViewById(R.id.botonInsertar)).setOnClickListener(this);
         (view.findViewById(R.id.botonActualizar)).setOnClickListener(this);
         (view.findViewById(R.id.botonConsultar)).setOnClickListener(this);
@@ -73,11 +73,11 @@ public class PersonasFragment extends Fragment implements View.OnClickListener{
                 sql = "SELECT * FROM personas WHERE per_rfc=?";
                 Cursor c = query.rawQuery(sql, new String[]{rfc});
                 if(c.moveToFirst()) {
-                    tRfc.setText(c.getString(1));
-                    tNombre.setText(c.getString(2));
-                    tCiudad.setText(c.getString(3));
+                    tRfc.setText(c.getString(0));
+                    tNombre.setText(c.getString(1));
+                    tCiudad.setText(c.getString(2));
 
-                    if(c.getInt(4) == 1)
+                    if(c.getInt(3) == 1)
                         alerta("Alerta", "El RFC que se muestra está dado de baja");
                 }
                 else
@@ -122,7 +122,7 @@ public class PersonasFragment extends Fragment implements View.OnClickListener{
                 ContentValues contenedor = new ContentValues();
                 contenedor.put("per_estado", 1);
 
-                if(query.update("autos", contenedor, "aut_placa=?", new String[]{rfc}) > 0) {
+                if(query.update("personas", contenedor, "per_rfc=?", new String[]{rfc}) > 0) {
                     Toast.makeText(getActivity(), "Se ha dado de baja el RFC: " + rfc, Toast.LENGTH_LONG).show();
                     vaciarCampos();
                 }

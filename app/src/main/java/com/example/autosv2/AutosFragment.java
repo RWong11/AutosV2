@@ -174,7 +174,7 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
         textoMarca.setText("");
         textoModelo.setText("");
         textoAno.setText("");
-        imagenAuto.setImageResource(getResources().getIdentifier("ic_menu_gallery" , "android:drawable", getActivity().getPackageName()));
+        imagenAuto.setImageResource(getResources().getIdentifier("ic_add_photo" , "drawable", getActivity().getPackageName()));
         textoPlaca.requestFocus();
     }
 

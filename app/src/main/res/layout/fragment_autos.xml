@@ -8,13 +8,10 @@
         android:id="@+id/tableLayout"
         android:layout_width="364dp"
         android:layout_height="196dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
         app:layout_constraintBottom_toTopOf="@+id/imagenAuto"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -32,7 +29,7 @@
                 android:id="@+id/textoPlaca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="12"
+                android:ems="9"
                 android:inputType="textPersonName" />
 
         </TableRow>
@@ -51,7 +48,7 @@
                 android:id="@+id/textoMarca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="12"
+                android:ems="9"
                 android:inputType="textPersonName" />
         </TableRow>
 
@@ -69,7 +66,7 @@
                 android:id="@+id/textoModelo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:ems="9"
                 android:inputType="textPersonName" />
         </TableRow>
 
@@ -87,7 +84,7 @@
                 android:id="@+id/textoAno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="12"
+                android:ems="9"
                 android:inputType="numberSigned" />
         </TableRow>
 
@@ -101,14 +98,12 @@
         android:layout_marginLeft="104dp"
         android:layout_marginEnd="104dp"
         android:layout_marginRight="104dp"
-        android:layout_marginBottom="72dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:srcCompat="@drawable/ic_add_photo" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

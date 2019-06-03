@@ -1,6 +1,6 @@
 package com.example.autosv2;
 
-import android.content.ContentValues;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,9 +12,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,7 +24,6 @@ import android.widget.Toast;
 public class ServiciosFragment extends Fragment implements View.OnClickListener {
     BaseDeDatos bd;
     EditText tPlaca, tRfc, tKm, tPrecio, tFecha;
-    AlertDialog.Builder alertConsulta;
     ImageView imagenAuto;
 
     @Nullable
@@ -38,16 +39,15 @@ public class ServiciosFragment extends Fragment implements View.OnClickListener 
         bd = BaseDeDatos.getBD();
 
         imagenAuto = view.findViewById(R.id.imagen);
-        tPlaca = view.findViewById(R.id.txtPlaca2);
-        tRfc = view.findViewById(R.id.txtRfc2);
+        tPlaca = view.findViewById(R.id.txtPlaca);
+        tRfc = view.findViewById(R.id.txtRfc);
         tKm = view.findViewById(R.id.txtKm);
         tPrecio = view.findViewById(R.id.txtPrecio);
         tFecha = view.findViewById(R.id.txtFecha);
 
         (view.findViewById(R.id.botonInsertar)).setOnClickListener(this);
-        (view.findViewById(R.id.botonActualizar)).setOnClickListener(this);
-
-        crearAlertConsulta();
+        (view.findViewById(R.id.botonConsultar)).setOnClickListener(this);
+        tFecha.setOnClickListener(this);
     }
 
 
@@ -60,9 +60,11 @@ public class ServiciosFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.botonConsultar)
-            alertConsulta.show();
+        if(v == tFecha)
+            showDatePickerDialog();
 
+        else if(v.getId() == R.id.botonConsultar)
+            abrirAlertConsulta();
         else {
             String sql, placa, rfc, km, precio, fecha;
             placa = tPlaca.getText().toString();
@@ -79,35 +81,70 @@ public class ServiciosFragment extends Fragment implements View.OnClickListener 
             SQLiteDatabase query = bd.getWritableDatabase();
             Cursor c;
 
-            sql = "SELECT aut_placa FROM autos WHERE aut_placa=?";
+            sql = "SELECT aut_estado FROM autos WHERE aut_placa=?";
             c = query.rawQuery(sql, new String[] {placa});
             if(!c.moveToFirst()) {
                 alerta("Placa", "La placa ingresada no existe");
                 return;
             }
 
-            sql = "SELECT per_rfc FROM personas WHERE per_rfc=?";
+            if(c.getInt(0) == 1) {
+                alerta("Placa", "La placa ingresada está dada de baja");
+                return;
+            }
+
+            sql = "SELECT per_estado FROM personas WHERE per_rfc=?";
             c = query.rawQuery(sql, new String[]{rfc});
             if(!c.moveToFirst()) {
                 alerta("RFC", "El RFC ingresado no existe");
                 return;
             }
 
+            if(c.getInt(0) == 1) {
+                alerta("RFC", "El RFC ingresado está dado de baja");
+                return;
+            }
+
             query.close();
-            bd.insertarServicio(placa, rfc, Integer.parseInt(km), Double.parseDouble(precio), fecha);
+            bd.insertarServicio(placa, rfc, Integer.parseInt(km), Double.parseDouble(precio), fechaToField(fecha));
             vaciarCampos();
         }
     }
 
-    public void crearAlertConsulta() {
+    public String fechaToField(String fecha) {
+        String[] valores = fecha.split("/");
+        Log.d("test", valores[2]);
+        Log.d("test", valores[1]);
+        Log.d("test", valores[0]);
+        return valores[2]+valores[1]+valores[0];
+    }
+
+    public String fieldToFecha(String fecha) {
+        return fecha.substring(6)+"/"+fecha.substring(4, 6)+"/"+fecha.substring(0, 4);
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because january is zero
+                String szDay = (day < 10 ? "0" : "") +day;
+                String szMonth = ((month < 9) ? "0" : "") +(month+1);
+                final String selectedDate =  szDay +"/" +szMonth  +"/" +year;
+                tFecha.setText(selectedDate);
+            }
+        });
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+
+    public void abrirAlertConsulta() {
+        AlertDialog.Builder alertConsulta;
         final EditText editText = new EditText(getActivity());
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         alertConsulta = new AlertDialog.Builder(getActivity());
         alertConsulta.setMessage("Número de orden: ");
         alertConsulta.setTitle("Consulta");
-
         alertConsulta.setView(editText);
-
         alertConsulta.setPositiveButton("Consultar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String orden = editText.getText().toString();
@@ -119,6 +156,7 @@ public class ServiciosFragment extends Fragment implements View.OnClickListener 
         });
 
         alertConsulta.setNegativeButton("Cancelar", null);
+        alertConsulta.show();
     }
 
     public void consultarServicio(int orden) {
@@ -131,7 +169,7 @@ public class ServiciosFragment extends Fragment implements View.OnClickListener 
             tRfc.setText(c.getString(2));
             tKm.setText("" +c.getInt(3));
             tPrecio.setText("" +c.getDouble(4));
-            tFecha.setText(c.getString(5));
+            tFecha.setText(fieldToFecha(c.getString(5)));
 
             sql = "SELECT aut_imagen FROM autos WHERE aut_placa=?";
             c = query.rawQuery(sql, new String[] {placa});

@@ -76,22 +76,27 @@ public class InicioFragment extends Fragment {
             contenido[PERSONAS].add(new Contenido(null, atributos, c.getInt(3) == 0));
         }
 
-        for(int i = 0; i < 10; i++) {
+        c = query.rawQuery("SELECT * from servicios", null);
+        while(c.moveToNext()) {
             String[] atributos = new String[6];
-            atributos[0] = "#" +i;
-            atributos[1] = "PLACA"+i;
-            atributos[2] = "RFC" +i;
-            atributos[3] = "Kilometraje: " + new Random().nextInt(1000);
-            atributos[4] = "Precio" +i;
-            atributos[5] = "Fecha: "+new Random().nextInt(32)+"/12/12";
+            atributos[0] = "#" +c.getInt(0);
+            atributos[1] = c.getString(1);
+            atributos[2] = c.getString(2);
+            atributos[3] = c.getInt(3) +" KM";
+            atributos[4] = "$" +c.getDouble(4);
+            atributos[5] = fieldToFecha(c.getString(5));
             contenido[SERVICIOS].add(new Contenido(null, atributos, true));
         }
 
         adapter = new ArrayAdapter[3];
         for(int i = 0; i < contenido.length; i++)
-            adapter[i] = new ListAdapter(contenido[i]);
+            adapter[i] = new ListAdapter(i);
 
         query.close();
+    }
+
+    public String fieldToFecha(String fecha) {
+        return fecha.substring(6)+"/"+fecha.substring(4, 6)+"/"+fecha.substring(0, 4);
     }
 
     private void setupTabLayout(final View view) {
@@ -109,10 +114,10 @@ public class InicioFragment extends Fragment {
     }
 
     private class ListAdapter extends ArrayAdapter<Contenido> {
-        ArrayList<Contenido> datos;
+        int datos;
 
-        public ListAdapter(ArrayList<Contenido> datos) {
-            super(InicioFragment.this.getActivity(), R.layout.item_vista, datos);
+        public ListAdapter(int datos) {
+            super(InicioFragment.this.getActivity(), R.layout.item_vista, contenido[datos]);
             this.datos = datos;
         }
 
@@ -121,15 +126,19 @@ public class InicioFragment extends Fragment {
             if (itemView == null)
                 itemView = getLayoutInflater().inflate(R.layout.item_vista, parent, false);
 
-            Contenido itemActual = datos.get(Position);
+            Contenido itemActual = contenido[datos].get(Position);
             if(!itemActual.isEnabled())
                 itemView.setAlpha((float)0.30);
 
+            ImageView imagen = (ImageView) itemView.findViewById(R.id.imagen);
             byte[] byteImagen = itemActual.getImagen();
             if(byteImagen != null) {
-                ImageView imagen = (ImageView) itemView.findViewById(R.id.imagen);
+
                 byteArrayToImagen(imagen, byteImagen);
             }
+
+            if(datos == SERVICIOS)
+                imagen.setImageResource(getResources().getIdentifier("item_servicio" , "drawable", getActivity().getPackageName()));
 
             TextView tv;
             String texto;
