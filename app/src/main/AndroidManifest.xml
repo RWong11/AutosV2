@@ -11,24 +11,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Consulta3"
-            android:label="@string/title_activity_consulta3"
+            android:label="Nisson"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Consulta2"
-            android:label="@string/title_activity_consulta2"
+            android:label="Nisson"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Consulta1"
-            android:label="@string/title_activity_consulta1"
+            android:label="Nisson"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

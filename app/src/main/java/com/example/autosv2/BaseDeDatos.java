@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class BaseDeDatos extends SQLiteOpenHelper {
     static final String NOMBRE = "NISSON";
-    static final int version = 1;
+    static final int version = 2;
 
     final String TABLA_AUTOS = "CREATE TABLE autos(aut_placa TEXT PRIMARY KEY, " +
                                 "aut_marca TEXT, aut_modelo TEXT, aut_imagen BLOB, " +

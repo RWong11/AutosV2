@@ -179,10 +179,14 @@ public class AutosFragment extends Fragment implements View.OnClickListener {
     }
 
     public byte[] imagenToByteArray(ImageView imagen) {
-        Drawable d = imagen.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        ByteArrayOutputStream stream;
+        try {
+            Drawable d = imagen.getDrawable();
+            Bitmap bitmap = ((BitmapDrawable) d).getBitmap();
+            stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        } catch (Exception e) { return null; }
+
         return stream.toByteArray();
     }
 

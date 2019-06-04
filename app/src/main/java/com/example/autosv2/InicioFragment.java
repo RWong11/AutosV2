@@ -55,7 +55,7 @@ public class InicioFragment extends Fragment {
 
         contenido = new ArrayList[3];
         for(int i = 0; i< contenido.length; i++)
-            contenido[i] = new ArrayList<>();
+            contenido[i] = new ArrayList<Contenido>();
 
         Cursor c = query.rawQuery("SELECT * from autos", null);
         while(c.moveToNext()) {
@@ -133,12 +133,12 @@ public class InicioFragment extends Fragment {
             ImageView imagen = (ImageView) itemView.findViewById(R.id.imagen);
             byte[] byteImagen = itemActual.getImagen();
             if(byteImagen != null) {
-
                 byteArrayToImagen(imagen, byteImagen);
             }
-
-            if(datos == SERVICIOS)
+            else if(datos == SERVICIOS)
                 imagen.setImageResource(getResources().getIdentifier("item_servicio" , "drawable", getActivity().getPackageName()));
+            else if(datos == AUTOS)
+                imagen.setImageResource(getResources().getIdentifier("ic_autos" , "drawable", getActivity().getPackageName()));
 
             TextView tv;
             String texto;

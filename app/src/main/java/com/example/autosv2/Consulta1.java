@@ -43,9 +43,10 @@ public class Consulta1 extends AppCompatActivity {
         Cursor c = query.rawQuery("select per_ciudad, SUM(ser_precio), MIN(ser_precio), MAX(ser_precio), AVG(ser_precio) "+
                 " FROM servicios s INNER JOIN personas p ON s.ser_rfc = p.per_rfc GROUP BY p.per_ciudad",null);
 
+        contenido = new ArrayList<>();
         while(c.moveToNext()){
             String atributos [] = new String[5];
-            contenido = new ArrayList<>();
+
             atributos[0] = c.getString(0);
             atributos[1] = df.format(c.getDouble(1));
             atributos[2] = df.format(c.getDouble(2));

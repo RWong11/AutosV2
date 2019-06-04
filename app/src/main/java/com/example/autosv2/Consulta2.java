@@ -32,13 +32,14 @@ public class Consulta2 extends AppCompatActivity {
         BaseDeDatos bd = BaseDeDatos.getBD();
         SQLiteDatabase query = bd.getWritableDatabase();
         Cursor c = query.rawQuery("select substr(ser_fecha,1,4), per_ciudad, aut_marca, COUNT(*), SUM(ser_precio)" +
-                "FROM servicios S INNER JOIN personas P on (S.ser_rfc = P.per_rfc) INNER JOIN autos A on" +
-                "(S.placa = A.placa) GROUP BY substr(ser_fecha,1,4), per_ciudad, aut_marca",null);
+                "FROM servicios S INNER JOIN personas P on (ser_rfc = per_rfc) INNER JOIN autos A on" +
+                "(ser_placa = aut_placa) GROUP BY substr(ser_fecha,1,4), per_ciudad, aut_marca",null);
 
+        contenido = new ArrayList<>();
         while(c.moveToNext()){
             String atributos [] = new String[5];
-            contenido = new ArrayList<>();
-            atributos[0] = c.getInt(0)+"";
+
+            atributos[0] = c.getString(0);
             atributos[1] = c.getString(1);
             atributos[2] = c.getString(2);
             atributos[3] = c.getInt(3) + "";

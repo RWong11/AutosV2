@@ -113,9 +113,6 @@ public class ServiciosFragment extends Fragment implements View.OnClickListener 
 
     public String fechaToField(String fecha) {
         String[] valores = fecha.split("/");
-        Log.d("test", valores[2]);
-        Log.d("test", valores[1]);
-        Log.d("test", valores[0]);
         return valores[2]+valores[1]+valores[0];
     }
 

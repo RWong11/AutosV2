@@ -42,9 +42,10 @@ public class Consulta3 extends AppCompatActivity {
         Cursor c = query.rawQuery("select per_rfc, per_nombre, per_ciudad from personas P left join servicios " +
                 "S on (P.per_rfc = S.ser_rfc) where S.ser_rfc is null" ,null);
 
+        contenido = new ArrayList<>();
         while(c.moveToNext()){
             String atributos [] = new String[3];
-            contenido = new ArrayList<>();
+
             atributos[0] = c.getString(0);
             atributos[1] = c.getString(1);
             atributos[2] = c.getString(2);
