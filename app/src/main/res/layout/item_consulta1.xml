@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblCiudad"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="CIUDAD"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/lblTotal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="TOTAL"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/lblMax"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="PRECIO (MAX)"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/lblMin"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="PRECIO (MIN)"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/lblProm"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="PROMEDIO"
+        android:textSize="10sp" />
+
+</LinearLayout>

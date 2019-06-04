@@ -9,12 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity
+            android:name=".Consulta3"
+            android:label="@string/title_activity_consulta3"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Consulta2"
+            android:label="@string/title_activity_consulta2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Consulta1"
+            android:label="@string/title_activity_consulta1"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

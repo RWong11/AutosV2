@@ -1,5 +1,6 @@
 package com.example.autosv2;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     BaseDeDatos bd;
     private DrawerLayout drawer;
+    private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +77,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_consulta_ingresos:
                 Toast.makeText(getApplicationContext(),"Consulta ingresos", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this,Consulta1.class);
+                startActivityForResult(intent,0);
                 break;
             case R.id.nav_consulta_servicios:
                 Toast.makeText(getApplicationContext(),"Consulta Servicios", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this,Consulta2.class);
+                startActivityForResult(intent,0);
                 break;
             case R.id.nav_consulta_personas:
                 Toast.makeText(getApplicationContext(),"Consulta Personas", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this,Consulta3.class);
+                startActivityForResult(intent,0);
                 break;
         }
+
+
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
